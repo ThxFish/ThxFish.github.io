@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>清蒸鱼的个人知识库</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="极致轻量的个人知识库">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  
+  <!-- 默认主题（作为基础） -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  
+  <!-- 明暗主题切换插件依赖 -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/style.min.css" title="docsify-darklight-theme" type="text/css">
+  
+  <!-- KaTeX 用于支持 LaTeX 公式渲染 -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  
+  <!-- One Dark Pro 代码高亮主题 (覆盖默认vue.css的浅色高亮) -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/prism-theme-one-dark@1.0.0/prism-onedark.min.css">
+
+  <style>
+    /* 强制重写代码块字体为 Consolas */
+    code, pre {
+      font-family: Consolas, "Courier New", monospace !important;
+    }
+    
+    /* 修正内联代码块的样式 */
+    :not(pre) > code {
+      font-family: Consolas, "Courier New", monospace !important;
+    }
+
+    /* 深色模式下的针对性调整：匹配 One Dark Pro 背景 (#282C34) */
+    #docsify-darklight-theme.dark {
+      --codeBackgroundColor: #282C34 !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">🏃‍♂️ 加载中...</div>
+  
+  <script>
+    // 1. 获取系统当前偏好主题
+    const systemTheme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light';
+    
+    // 2. 监听系统主题切换并动态跟随
+    if (window.matchMedia) {
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+        const newTheme = e.matches ? 'dark' : 'light';
+        const currentTheme = localStorage.getItem('DARK_LIGHT_THEME') || 'light';
+        if (newTheme !== currentTheme) {
+          const toggleBtn = document.getElementById('docsify-darklight-theme');
+          if (toggleBtn) toggleBtn.click(); // 触发插件本身的切换逻辑（包含持久化和颜色替换）
+        }
+      });
+    }
+
+    window.$docsify = {
+      name: '清蒸鱼的个人知识库',
+      repo: '',
+      loadSidebar: true,
+      subMaxLevel: 2,
+      auto2top: true, // 切换页面后自动跳转顶部
+      search: 'auto', // 默认搜索框支持
+      
+      // 暗/亮模式设置
+      darklightTheme: {
+        siteFont: 'inherit',
+        defaultTheme: systemTheme,
+        codeFontFamily: 'consolas, monospace',
+        bodyFontSize: '15px',
+        dark: {
+          accent: '#42b983',
+          toogleBackground: '#42b983',
+          background: '#091a28',
+          textColor: '#b4b4b4',
+          codeTextColor: '#ffffff',
+          codeBackgroundColor: '#0e2233',
+          borderColor: '#0d2538',
+          blockQuoteColor: '#858585',
+          highlightColor: '#d22778',
+          sidebarSublink: '#b4b4b4',
+          codeTypeColor: '#ffffff',
+          coverBackground: '#091a28',
+          toogleImage: 'url(https://cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/icons/sun.svg)'
+        },
+        light: {
+          accent: '#42b983',
+          toogleBackground: '#091a28',
+          background: '#ffffff',
+          textColor: '#34495e',
+          codeTextColor: '#525252',
+          codeBackgroundColor: '#f8f8f8',
+          borderColor: '#rgba(0,0,0,0.07)',
+          blockQuoteColor: '#858585',
+          highlightColor: '#d22778',
+          sidebarSublink: '#505d6b',
+          codeTypeColor: '#091a28',
+          coverBackground: 'linear-gradient(to left bottom, hsl(118, 100%, 85%) 0%, hsl(181, 100%, 85%) 100%)',
+          toogleImage: 'url(https://cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/icons/moon.svg)'
+        }
+      }
+    }
+  </script>
+
+  <!-- Docsify v4 核心包 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+
+  <!-- ================= 以下为附加功能插件 ================= -->
+
+  <!-- 1. 明暗主题切换器 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/index.min.js"></script>
+
+  <!-- 2. 图片支持 (点击放大缩小) -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+
+  <!-- 3. LaTeX 公式支持 (依赖KaTeX) -->
+  <script src="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <!-- 用 marked-katex 提供底层解析插件 -->
+  <script src="//cdn.jsdelivr.net/npm/marked@4"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script>
+
+  <!-- 4. 代码块拓展及高亮 (增强PrismJS) -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+  <!-- 以下用来支持更多主流语言语法高亮 -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-cpp.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+
+  <!-- 另外基础的搜索插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+</body>
+</html>
